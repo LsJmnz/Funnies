@@ -5,6 +5,7 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_explicit_off_by_default">NSFW Jokes Off</string>
     <string name="rolf">rolling_on_the_floor_laughing</string>
+    <string name="funnies_github_page">Funnies Github Page</string>
 </resources>
