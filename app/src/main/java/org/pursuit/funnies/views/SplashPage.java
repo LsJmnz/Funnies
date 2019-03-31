@@ -23,7 +23,6 @@ public class SplashPage extends AppCompatActivity {
     private Handler handler;
     private Runnable runnable;
     private GifImageView gifImageView;
-    private ProgressBar progressBar;
 
 
 
@@ -32,8 +31,7 @@ public class SplashPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_page);
         gifImageView = findViewById(R.id.laughing_gif);
-//        progressBar = findViewById(R.id.progressBar);
-//        progressBar.setVisibility(VISIBLE);
+
 
         Glide.with(this).load(R.raw.tenor).into(gifImageView);
         runnable = new Runnable() {
