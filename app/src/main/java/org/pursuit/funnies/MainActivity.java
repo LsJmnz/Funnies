@@ -1,5 +1,7 @@
 package org.pursuit.funnies;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -62,20 +64,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch (id) {
             case R.id.action_github:
-                /*
-                Code for link to GutHub
-                 */
+                Intent gitHub = new Intent("android.intent.action.VIEW", Uri.parse("https://github.com/LJmnz27/Funnies"));
+                startActivity(gitHub);
                 return true;
             case R.id.linkedIn:
-                /*
-                Code for link to LinkedIn
-                 */
+                Intent linkedIn = new Intent("android.intent.action.VIEW", Uri.parse("https://www.linkedin.com/in/ljmnz27/"));
+                startActivity(linkedIn);
                 return true;
 
             default:
