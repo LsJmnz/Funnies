@@ -67,16 +67,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch (id) {
-            case R.id.toggle_service:
-                /*
-                Code for Toggling
-                 */
-                return true;
             case R.id.action_github:
                 /*
                 Code for link to GutHub
                  */
                 return true;
+            case R.id.linkedIn:
+                /*
+                Code for link to LinkedIn
+                 */
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

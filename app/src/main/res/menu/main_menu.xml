@@ -9,9 +9,16 @@
             <item
                 android:id="@+id/action_github"
                 android:title="@string/funnies_github_page"
-                android:icon="@drawable/ic_github_icon"
                 android:orderInCategory="1"
                 app:showAsAction="ifRoom"/>
+
+            <item
+                android:id="@+id/linkedIn"
+                android:title="@string/linkedin"
+                app:showAsAction="ifRoom"
+                android:orderInCategory="2"
+
+                />
         </menu>
     </item>
 </menu>
