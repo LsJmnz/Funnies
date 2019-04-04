@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -41,7 +42,7 @@ public class SplashPage extends AppCompatActivity {
             }
         };
         handler = new Handler();
-        handler.postDelayed(runnable,3000);
+        handler.postDelayed(runnable,2000);
     }
 
     @Override
@@ -49,5 +50,20 @@ public class SplashPage extends AppCompatActivity {
         super.onDestroy();
         if(handler != null && runnable != null)
         handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            super.onKeyDown(keyCode, event);
+            return true;
+        }
+        return false;
     }
 }

@@ -11,4 +11,9 @@
     <string name="links">Links</string>
     <string name="checkable">NSFW Jokes</string>
     <string name="linkedin">Funnies LinkedIn</string>
+    <string name="chuck_norris_jokes">Chuck Norris Jokes</string>
+    <string name="dad_jokes">Dad Jokes</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
