@@ -27,4 +27,5 @@ public class ChuckNorrisFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_chuch_norris, container, false);
     }
 
+
 }
