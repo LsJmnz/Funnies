@@ -16,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import org.pursuit.funnies.themes.chucknorris.ChuckNorrisRecyclerViewFragment;
+import org.pursuit.funnies.themes.dadjokes.DadJokesFragment;
+
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (id) {
             case R.id.nav_chuck_norris:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, new ChuckNorrisFragment())
+                        .replace(R.id.main_container, new ChuckNorrisRecyclerViewFragment())
                         .commit();
                 break;
             case R.id.nav_dad_jokes:

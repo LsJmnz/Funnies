@@ -8,7 +8,7 @@
     android:paddingEnd="16dp"
     android:paddingStart="16dp"
     android:paddingBottom="16dp"
-    tools:context=".views.SplashPage">
+    tools:context=".SplashPage">
 
 <com.felipecsl.gifimageview.library.GifImageView
     android:id="@+id/laughing_gif"

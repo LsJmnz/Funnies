@@ -1,24 +1,16 @@
-package org.pursuit.funnies.views;
+package org.pursuit.funnies;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.felipecsl.gifimageview.library.GifImageView;
 
 import org.pursuit.funnies.MainActivity;
 import org.pursuit.funnies.R;
-
-import java.io.IOException;
-import java.io.InputStream;
-
-import static android.view.View.VISIBLE;
 
 public class SplashPage extends AppCompatActivity {
     private Handler handler;
