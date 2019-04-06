@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 
 import org.pursuit.funnies.R;
 
-public class DadJokesFragment extends Fragment {
+public class DadJokesRecyclerViewFragment extends Fragment {
 
-    public DadJokesFragment() {
+    public DadJokesRecyclerViewFragment() {
         // Required empty public constructor
     }
 

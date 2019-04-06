@@ -30,7 +30,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:elevation="8dp"
-        app:backgroundTint="@color/design_default_color_primary_dark"
+        app:backgroundTint="@color/colorAccent"
         app:srcCompat="@drawable/ic_share_white_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>

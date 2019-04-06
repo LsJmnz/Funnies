@@ -17,7 +17,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 
 import org.pursuit.funnies.themes.chucknorris.ChuckNorrisRecyclerViewFragment;
-import org.pursuit.funnies.themes.dadjokes.DadJokesFragment;
+import org.pursuit.funnies.themes.dadjokes.DadJokesRecyclerViewFragment;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_dad_jokes:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, new DadJokesFragment())
+                        .replace(R.id.main_container, new DadJokesRecyclerViewFragment())
                         .commit();
                 break;
             default:
