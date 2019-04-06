@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FrameLayout frameLayout = findViewById(R.id.main_container);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView =  findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -89,26 +91,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_chuck_norris:
-
-                return true;
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_container, new ChuckNorrisFragment())
+                        .commit();
+                break;
             case R.id.nav_dad_jokes:
-
-                return true;
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.main_container, new DadJokesFragment())
+                        .commit();
+                break;
             default:
                 return true;
         }
-        /*
-           if (id == R.id.nav_chuck_norris) {
-            // Handle the camera action
-        } else if (id == R.id.nav_dad_jokes) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-         */
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
-
-
 }
