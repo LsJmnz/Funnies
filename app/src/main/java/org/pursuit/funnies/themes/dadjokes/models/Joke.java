@@ -1,6 +1,6 @@
 package org.pursuit.funnies.themes.dadjokes.models;
 
-public class Response{
+public class Joke {
 	private String id;
 	private String joke;
 	private int status;
@@ -32,7 +32,7 @@ public class Response{
 	@Override
  	public String toString(){
 		return 
-			"Response{" + 
+			"Joke{" +
 			"id = '" + id + '\'' + 
 			",joke = '" + joke + '\'' + 
 			",status = '" + status + '\'' + 
