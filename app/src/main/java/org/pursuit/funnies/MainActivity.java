@@ -10,7 +10,9 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,19 +20,45 @@ import android.widget.FrameLayout;
 
 import org.pursuit.funnies.themes.chucknorris.ChuckNorrisRecyclerViewFragment;
 import org.pursuit.funnies.themes.dadjokes.DadJokesRecyclerViewFragment;
+import org.pursuit.funnies.themes.dadjokes.models.Joke;
+import org.pursuit.funnies.themes.dadjokes.network.DadJokesService;
+import org.pursuit.funnies.themes.dadjokes.network.DadJokesSingleton;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private RecyclerView recyclerView;
+    public final String BASE_URL = "https://icanhazdadjoke.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FrameLayout frameLayout = findViewById(R.id.main_container);
+        recyclerView = findViewById(R.id.dad_jokes_recycler_view);
+
+        Retrofit retrofit = DadJokesSingleton.getInstance();
+        DadJokesService dadJokesService = retrofit.create(DadJokesService.class);
+        Call<Joke> jokeCall= dadJokesService.getJoke();
+        jokeCall.enqueue(new Callback<Joke>() {
+            @Override
+            public void onResponse(Call<Joke> call, Response<Joke> response) {
+                Log.d(TAG, "Luis " + response.toString());
+            }
+
+            @Override
+            public void onFailure(Call<Joke> call, Throwable t) {
+                Log.d(TAG, "Luis " + t.getMessage());
+            }
+        });
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -89,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         int id = item.getItemId();

@@ -29,13 +29,4 @@ public class Joke {
 		return status;
 	}
 
-	@Override
- 	public String toString(){
-		return 
-			"Joke{" +
-			"id = '" + id + '\'' + 
-			",joke = '" + joke + '\'' + 
-			",status = '" + status + '\'' + 
-			"}";
-		}
 }
