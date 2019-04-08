@@ -30,7 +30,7 @@ public class SplashPage extends AppCompatActivity {
         runnable = new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
             }
         };
         handler = new Handler();
@@ -47,15 +47,5 @@ public class SplashPage extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            super.onKeyDown(keyCode, event);
-            return true;
-        }
-        return false;
     }
 }
