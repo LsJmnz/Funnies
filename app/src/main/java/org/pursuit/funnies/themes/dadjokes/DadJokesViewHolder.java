@@ -1,16 +1,19 @@
 package org.pursuit.funnies.themes.dadjokes;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import org.pursuit.funnies.R;
-import org.pursuit.funnies.themes.dadjokes.models.Joke;
 
 public class DadJokesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public CardView cardView;
     private TextView textView;
-    private Joke joke;
+    Intent intent;
+
 
     public DadJokesViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -23,7 +26,8 @@ public class DadJokesViewHolder extends RecyclerView.ViewHolder implements View.
 
     }
 
-    public void onBind(int position){
-        textView.setText(joke.getJoke());
+    public void onBind(String dadJoke){
+        textView.setText(dadJoke);
+
     }
 }

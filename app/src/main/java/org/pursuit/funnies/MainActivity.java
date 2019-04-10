@@ -10,6 +10,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,12 +19,15 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.pursuit.funnies.themes.chucknorris.ChuckNorrisRecyclerViewFragment;
+import org.pursuit.funnies.themes.dadjokes.DadJokesAdapter;
 import org.pursuit.funnies.themes.dadjokes.DadJokesRecyclerViewFragment;
 import org.pursuit.funnies.themes.dadjokes.models.Joke;
 import org.pursuit.funnies.themes.dadjokes.network.DadJokesService;
 import org.pursuit.funnies.themes.dadjokes.network.DadJokesSingleton;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -39,8 +43,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private RecyclerView recyclerView;
-    public final String BASE_URL = "https://icanhazdadjoke.com/";
-    private Joke joke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,32 +50,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         recyclerView = findViewById(R.id.dad_jokes_recycler_view);
-
-        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.addInterceptor(new Interceptor() {
-            @SuppressWarnings("NullableProblems")
-            @Override
-            public okhttp3.Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
-
-                Request request = original.newBuilder()
-                        .header("User-Agent", "org.pursuit.funnies")
-                        .header("Accept", "application/json")
-                        .method(original.method(), original.body())
-                        .build();
-
-                return chain.proceed(request);
-            }
-        });
-
         Retrofit retrofit = DadJokesSingleton.getInstance();
 
         DadJokesService dadJokesService = retrofit.create(DadJokesService.class);
-        Call<Joke> jokeCall = dadJokesService.getJoke();
+        final Call<Joke> jokeCall = dadJokesService.getJoke();
         jokeCall.enqueue(new Callback<Joke>() {
             @Override
             public void onResponse(Call<Joke> call, Response<Joke> response) {
                 Log.d(TAG, "onResponse: " + response.body().getJoke());
+                String joke = response.body().getJoke();
+
+                ArrayList<String> JokeList = new ArrayList<>();
+                JokeList.add(joke);
+
             }
 
             @Override
@@ -103,6 +92,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
     }
+
+    public void setRecylerView(List<String> jokeList ){
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        jokeList.createList(25);
+
+    }
+
 
     @Override
     public void onBackPressed() {
