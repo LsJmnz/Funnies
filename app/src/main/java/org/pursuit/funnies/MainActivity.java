@@ -16,7 +16,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import org.pursuit.funnies.themes.chucknorris.ChuckNorrisRecyclerViewFragment;
 import org.pursuit.funnies.themes.dadjokes.DadJokesRecyclerViewFragment;
@@ -24,6 +23,11 @@ import org.pursuit.funnies.themes.dadjokes.models.Joke;
 import org.pursuit.funnies.themes.dadjokes.network.DadJokesService;
 import org.pursuit.funnies.themes.dadjokes.network.DadJokesSingleton;
 
+import java.io.IOException;
+
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private NavigationView navigationView;
     private RecyclerView recyclerView;
     public final String BASE_URL = "https://icanhazdadjoke.com/";
+    private Joke joke;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,20 +49,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         recyclerView = findViewById(R.id.dad_jokes_recycler_view);
 
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(new Interceptor() {
+            @SuppressWarnings("NullableProblems")
+            @Override
+            public okhttp3.Response intercept(Chain chain) throws IOException {
+                Request original = chain.request();
+
+                Request request = original.newBuilder()
+                        .header("User-Agent", "org.pursuit.funnies")
+                        .header("Accept", "application/json")
+                        .method(original.method(), original.body())
+                        .build();
+
+                return chain.proceed(request);
+            }
+        });
+
         Retrofit retrofit = DadJokesSingleton.getInstance();
+
         DadJokesService dadJokesService = retrofit.create(DadJokesService.class);
-        Call<Joke> jokeCall= dadJokesService.getJoke();
+        Call<Joke> jokeCall = dadJokesService.getJoke();
         jokeCall.enqueue(new Callback<Joke>() {
             @Override
             public void onResponse(Call<Joke> call, Response<Joke> response) {
-                Log.d(TAG, "Luis " + response.toString());
+                Log.d(TAG, "onResponse: " + response.body().getJoke());
             }
 
             @Override
             public void onFailure(Call<Joke> call, Throwable t) {
-                Log.d(TAG, "Luis " + t.getMessage());
+                Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

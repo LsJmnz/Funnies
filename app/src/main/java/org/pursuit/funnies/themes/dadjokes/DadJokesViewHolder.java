@@ -14,7 +14,7 @@ public class DadJokesViewHolder extends RecyclerView.ViewHolder implements View.
 
     public DadJokesViewHolder(@NonNull View itemView) {
         super(itemView);
-        textView = itemView.findViewById(R.id.dad_joke_text_view);
+        textView = itemView.findViewById(R.id.joke_text_view);
         itemView.setOnClickListener(this);
     }
 
