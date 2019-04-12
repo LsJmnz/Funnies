@@ -1,5 +1,7 @@
 package org.pursuit.funnies.themes.dadjokes.models;
 
+import java.util.ArrayList;
+
 public class Joke {
 	private String id;
 	private String joke;
@@ -29,4 +31,22 @@ public class Joke {
 		return status;
 	}
 
+	public Joke(String id, String joke, int status) {
+		this.id = id;
+		this.joke = joke;
+		this.status = status;
+	}
+
+	private Joke() {
+	}
+
+	public static ArrayList<Joke> createJokeList(int numJokes) {
+		ArrayList<Joke> jokesList = new ArrayList<>();
+
+		for (int i = 1; i <= numJokes; i++) {
+			jokesList.add(new Joke());
+		}
+
+		return jokesList;
+	}
 }

@@ -10,8 +10,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -19,19 +17,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.pursuit.funnies.themes.chucknorris.ChuckNorrisRecyclerViewFragment;
-import org.pursuit.funnies.themes.dadjokes.DadJokesAdapter;
 import org.pursuit.funnies.themes.dadjokes.DadJokesRecyclerViewFragment;
 import org.pursuit.funnies.themes.dadjokes.models.Joke;
 import org.pursuit.funnies.themes.dadjokes.network.DadJokesService;
 import org.pursuit.funnies.themes.dadjokes.network.DadJokesSingleton;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,14 +32,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final String TAG = "MainActivity";
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.dad_jokes_recycler_view);
+
         Retrofit retrofit = DadJokesSingleton.getInstance();
 
         DadJokesService dadJokesService = retrofit.create(DadJokesService.class);
@@ -58,10 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<Joke> call, Response<Joke> response) {
                 Log.d(TAG, "onResponse: " + response.body().getJoke());
-                String joke = response.body().getJoke();
 
-                ArrayList<String> JokeList = new ArrayList<>();
-                JokeList.add(joke);
 
             }
 
@@ -91,12 +77,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
-
-    public void setRecylerView(List<String> jokeList ){
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        jokeList.createList(25);
-
     }
 
 
@@ -140,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         int id = item.getItemId();
+        Log.d(TAG, "onNavigationItemSelected: ID = " + id);
         switch (id) {
             case R.id.nav_chuck_norris:
                 getSupportFragmentManager().beginTransaction()
@@ -151,8 +132,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         .replace(R.id.main_container, new DadJokesRecyclerViewFragment())
                         .commit();
                 break;
-            default:
-                return true;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -1,6 +1,7 @@
 package org.pursuit.funnies;
 
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import org.pursuit.funnies.MainActivity;
 import org.pursuit.funnies.R;
 
 public class SplashPage extends AppCompatActivity {
+    private CountDownTimer countDownTimer;
     private Handler handler;
     private Runnable runnable;
     private GifImageView gifImageView;
@@ -27,21 +29,23 @@ public class SplashPage extends AppCompatActivity {
 
 
         Glide.with(this).load(R.raw.tenor).into(gifImageView);
-        runnable = new Runnable() {
+        countDownTimer = new CountDownTimer(4000, 1000) {
             @Override
-            public void run() {
-                startActivity(new Intent(getBaseContext(), MainActivity.class));
+            public void onTick(long millisUntilFinished) {
+
             }
-        };
-        handler = new Handler();
-        handler.postDelayed(runnable,2000);
+
+            @Override
+            public void onFinish() {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        }.start();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(handler != null && runnable != null)
-        handler.removeCallbacks(runnable);
     }
 
     @Override
