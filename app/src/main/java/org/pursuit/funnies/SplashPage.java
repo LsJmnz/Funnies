@@ -1,17 +1,13 @@
 package org.pursuit.funnies;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.KeyEvent;
 
 import com.bumptech.glide.Glide;
 import com.felipecsl.gifimageview.library.GifImageView;
-
-import org.pursuit.funnies.MainActivity;
-import org.pursuit.funnies.R;
 
 public class SplashPage extends AppCompatActivity {
     private CountDownTimer countDownTimer;

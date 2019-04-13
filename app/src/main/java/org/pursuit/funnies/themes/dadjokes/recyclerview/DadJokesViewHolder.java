@@ -2,12 +2,10 @@ package org.pursuit.funnies.themes.dadjokes.recyclerview;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-
 import android.view.View;
 import android.widget.TextView;
 
 import org.pursuit.funnies.R;
-
 import org.pursuit.funnies.themes.dadjokes.models.Joke;
 
 
