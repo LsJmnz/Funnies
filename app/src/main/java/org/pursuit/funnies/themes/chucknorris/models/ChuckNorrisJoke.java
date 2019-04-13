@@ -1,6 +1,6 @@
 package org.pursuit.funnies.themes.chucknorris.models;
 
-public class Joke {
+public class ChuckNorrisJoke {
         private String iconUrl;
         private String id;
         private Object category;
@@ -50,7 +50,7 @@ public class Joke {
         @Override
         public String toString(){
             return
-                    "Joke{" +
+                    "ChuckNorrisJoke{" +
                             "icon_url = '" + iconUrl + '\'' +
                             ",id = '" + id + '\'' +
                             ",category = '" + category + '\'' +

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,8 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import org.pursuit.funnies.themes.chucknorris.ChuckNorrisRecyclerViewFragment;
-import org.pursuit.funnies.themes.dadjokes.DadJokesRecyclerViewFragment;
+import org.pursuit.funnies.themes.dadjokes.DadJokesFragment;
 import org.pursuit.funnies.themes.dadjokes.models.Joke;
 import org.pursuit.funnies.themes.dadjokes.network.DadJokesService;
 import org.pursuit.funnies.themes.dadjokes.network.DadJokesSingleton;
@@ -28,10 +28,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+ShowFragmentsInterface{
     private static final String TAG = "MainActivity";
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private Joke joke;
+    FragmentManager fragmentManager = getSupportFragmentManager();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onResponse(Call<Joke> call, Response<Joke> response) {
                 Log.d(TAG, "onResponse: " + response.body().getJoke());
+
+                String joke = response.body().getJoke();
 
 
             }
@@ -121,19 +127,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         int id = item.getItemId();
         Log.d(TAG, "onNavigationItemSelected: ID = " + id);
+
+
         switch (id) {
             case R.id.nav_chuck_norris:
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, new ChuckNorrisRecyclerViewFragment())
-                        .commit();
+
                 break;
             case R.id.nav_dad_jokes:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, new DadJokesRecyclerViewFragment())
+                        .replace(R.id.main_container, new DadJokesFragment())
                         .commit();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void showDadJokesFragment() {
+    }
+
+    @Override
+    public void showChuckNorrisFragment() {
+
     }
 }

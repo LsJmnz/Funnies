@@ -1,6 +1,6 @@
 package org.pursuit.funnies.themes.chucknorris.network;
 
-import org.pursuit.funnies.themes.chucknorris.models.Joke;
+import org.pursuit.funnies.themes.chucknorris.models.ChuckNorrisJoke;
 import org.pursuit.funnies.themes.chucknorris.models.JokeCategory;
 
 import retrofit2.Call;
@@ -12,5 +12,5 @@ public interface ChuckNorrisService {
     Call<JokeCategory> getJokeCategories();
 
     @GET("https://api.chucknorris.io/jokes/random?category={category}")
-    Call<Joke> getJokeId(@Query("category") String jokeId);
+    Call<ChuckNorrisJoke> getJokeId(@Query("category") String jokeId);
 }
