@@ -7,4 +7,6 @@ public interface ShowFragmentsInterface {
     void showDadJokesFragment();
 
     void showChuckNorrisFragment();
+
+    void setUpRecyclerView();
 }

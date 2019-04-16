@@ -18,9 +18,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import org.pursuit.funnies.themes.dadjokes.DadJokesFragment;
+import org.pursuit.funnies.themes.dadjokes.jokesData.JokeList;
 import org.pursuit.funnies.themes.dadjokes.models.Joke;
 import org.pursuit.funnies.themes.dadjokes.network.DadJokesService;
 import org.pursuit.funnies.themes.dadjokes.network.DadJokesSingleton;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,11 +32,12 @@ import retrofit2.Retrofit;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-ShowFragmentsInterface{
+ShowFragmentsInterface, DadJokesFragment.OnFragmentInteractionListener{
     private static final String TAG = "MainActivity";
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Joke joke;
+    private String jokeInResponse;
     FragmentManager fragmentManager = getSupportFragmentManager();
 
 
@@ -43,17 +47,19 @@ ShowFragmentsInterface{
         setContentView(R.layout.activity_main);
 
 
-        Retrofit retrofit = DadJokesSingleton.getInstance();
 
+        for (int i = 0; i < 10; i++) {
+
+        Retrofit retrofit = DadJokesSingleton.getInstance();
         DadJokesService dadJokesService = retrofit.create(DadJokesService.class);
         final Call<Joke> jokeCall = dadJokesService.getJoke();
         jokeCall.enqueue(new Callback<Joke>() {
             @Override
             public void onResponse(Call<Joke> call, Response<Joke> response) {
                 Log.d(TAG, "onResponse: " + response.body().getJoke());
-
-                String joke = response.body().getJoke();
-
+                JokeList.makeList(response.body());
+                Log.d(TAG, "onCreate: "+JokeList.getJokeList().get(0).getJoke());
+                Log.d(TAG, "onResponse: "+JokeList.getJokeList().size());
 
             }
 
@@ -62,6 +68,8 @@ ShowFragmentsInterface{
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
+        }
+
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -114,7 +122,6 @@ ShowFragmentsInterface{
                 Intent linkedIn = new Intent("android.intent.action.VIEW", Uri.parse("https://www.linkedin.com/in/ljmnz27/"));
                 startActivity(linkedIn);
                 return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -135,10 +142,11 @@ ShowFragmentsInterface{
                 break;
             case R.id.nav_dad_jokes:
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_container, new DadJokesFragment())
+                        .replace(R.id.main_container, DadJokesFragment.newInstance(joke))
                         .commit();
                 break;
         }
+
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -149,6 +157,16 @@ ShowFragmentsInterface{
 
     @Override
     public void showChuckNorrisFragment() {
+
+    }
+
+    @Override
+    public void setUpRecyclerView() {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
