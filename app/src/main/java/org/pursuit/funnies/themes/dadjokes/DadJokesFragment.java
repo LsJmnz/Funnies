@@ -3,12 +3,16 @@ package org.pursuit.funnies.themes.dadjokes;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.pursuit.funnies.R;
+import org.pursuit.funnies.ShowFragmentsInterface;
 import org.pursuit.funnies.themes.dadjokes.models.Joke;
 
 
@@ -20,7 +24,7 @@ public class DadJokesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+    private ShowFragmentsInterface mListener;
     private Joke joke;
 
     public DadJokesFragment() {
@@ -32,7 +36,7 @@ public class DadJokesFragment extends Fragment {
     public static DadJokesFragment newInstance(Joke joke) {
         DadJokesFragment fragment = new DadJokesFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, joke.toString());
+//        args.putString(ARG_PARAM1, joke.toString());
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,6 +48,7 @@ public class DadJokesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Log.d("FINDME", "onCreate: In Dad jokes fragment");
     }
 
     @Override
@@ -53,18 +58,17 @@ public class DadJokesFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_dad_jokes, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        mListener.showChuckNorrisFragment();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof ShowFragmentsInterface) {
+            mListener = (ShowFragmentsInterface) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");

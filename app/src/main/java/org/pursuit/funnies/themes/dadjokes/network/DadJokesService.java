@@ -9,9 +9,7 @@ import retrofit2.http.Headers;
 public interface DadJokesService {
 
     @Headers({
-            "Accept: application/json",
-            "User-Agent: org.pursuit.funnies"
-    })
+            "Accept: application/json"})
     @GET("/")
     Call<Joke> getJoke();
 }
