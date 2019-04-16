@@ -48,7 +48,7 @@ ShowFragmentsInterface, DadJokesFragment.OnFragmentInteractionListener{
 
 
 
-//        for (int i = 0; i < ; i++) {
+        for (int i = 0; i < 10; i++) {
 
         Retrofit retrofit = DadJokesSingleton.getInstance();
         DadJokesService dadJokesService = retrofit.create(DadJokesService.class);
@@ -68,7 +68,7 @@ ShowFragmentsInterface, DadJokesFragment.OnFragmentInteractionListener{
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
-//        }
+        }
 
 
 
